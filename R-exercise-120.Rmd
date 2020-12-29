@@ -1,0 +1,76 @@
+---
+title: "Basic R exercise"
+author:   "Yuxin_Shuai"
+output: html_notebook
+---
+
+## Basic 20 Questions
+
+1. Data construction
+
+```{r}
+## sol_1
+df <- data.frame(
+  "grammer"=c("Python","C","Java","GO",NA,"SQL","PHP","Python"),
+  "Score"=c(1,2,NA,4,5,6,7,10)
+)
+df
+```
+```{r}
+## sol_2
+library(tibble)
+df <- tibble(
+  "grammer"=c("Python","C","Java","GO",NA,"SQL","PHP","Python"),
+  "Score"=c(1,2,NA,4,5,6,7,10)
+)
+df
+
+```
+
+2. Extract the row which contains "Python"
+
+
+
+```{r}
+df[which(df$grammer=="Python"),]
+```
+3. Export all the column names of df
+
+```{r}
+names(df)
+```
+4. Alter the name of second column to "Popularity"
+```{r}
+options(warn=-1)
+library(dplyr)
+library(tidyverse)
+df <- df %>% rename(popularity = Score)
+```
+```{r}
+df
+```
+5. Calculate the frequency of each programming language in column "grammer"
+```{r}
+table(df$grammer)
+```
+6. Replace NA with average of popularity
+
+```{r}
+library(Hmisc)
+df$popularity <- impute(df$popularity,mean)
+```
+```{r}
+df
+```
+7. Extract the row where its value is greater than 3 in column "popularity"
+
+```{r}
+df %>% filter(popularity >3)
+```
+
+8. Duplicate removal of column grammer
+
+```{r}
+df[!duplicated(df$grammer),]
+```
+
