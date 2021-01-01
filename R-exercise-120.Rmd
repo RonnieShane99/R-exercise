@@ -4,7 +4,7 @@ author:   "Yuxin_Shuai"
 output: html_notebook
 ---
 
-## Basic 20 Questions
+>__Basic 20 Questions__
 
 1. Data construction
 
@@ -39,7 +39,7 @@ df[which(df$grammer=="Python"),]
 ```{r}
 names(df)
 ```
-4. Alter the name of second column to "Popularity"
+4. Alter the name of second column to "popularity"
 ```{r}
 options(warn=-1)
 library(dplyr)
@@ -73,4 +73,144 @@ df %>% filter(popularity >3)
 ```{r}
 df[!duplicated(df$grammer),]
 ```
+
+9. Calculate the mean of column popularity
+
+```{r}
+mean(df$popularity)
+```
+
+```{r}
+df %>%
+  summarise(mean = mean(popularity))
+```
+
+10. Convert grammer to list
+
+```{r}
+unlist(df$grammer)
+```
+
+11. Export DataFrame to Excel
+
+```{r}
+library(readr)
+write_excel_csv(df,'filename.csv')
+```
+
+12. Search for the dimension of DataFrame
+
+```{r}
+dim(df)
+```
+13. Extract the row where the value of popularity is larger than 3 and smaller than 7
+
+```{r}
+df %>% filter(popularity >3 & popularity <7)
+```
+
+14. swap the columns popularity and grammer
+
+```{r}
+df <- df %>%
+    select(popularity,everything())
+```
+```{r}
+df
+```
+
+15. Extract the row where its value is largest in column popularity
+
+```{r}
+df %>% filter(popularity == max(popularity))
+```
+
+16. Extract the last five rows
+
+```{r}
+tail(df,5)
+```
+
+17. Delete the last row
+
+```{r}
+df[-dim(df)[1],]
+```
+
+18.Add row ['perl',6.6]
+
+```{r}
+row <- data.frame(
+  "grammer" = c("Perl"),
+  "popularity" = c(6.6)
+)
+df <- rbind(df,row)
+```
+ 
+19. Sort dataframe from small to big
+
+```{r}
+df<- df%>% arrange(popularity)
+```
+
+20. Calculate the length of string
+
+```{r}
+library(Hmisc)
+library(stringr)
+df$grammer <- impute(df$grammer,'R')
+str_length(df$grammer)
+
+df$len_str <- str_length(df$grammer)
+```
+
+21. Read excel
+
+```{r}
+df <- read_csv('pandas120.csv')
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
